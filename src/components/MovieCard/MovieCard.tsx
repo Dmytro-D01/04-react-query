@@ -1,5 +1,5 @@
 import type { Movie } from "../../types/movie";
-import { IMAGE_BASE_URL } from "../../api";
+import { IMAGE_BASE_URL } from "../../services/movieService";
 import css from "./MovieCard.module.css";
 
 interface MovieCardProps {

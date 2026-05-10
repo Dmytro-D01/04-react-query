@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
 import SearchBar from "./components/SearchBar/SearchBar";
 import MovieList from "./components/MovieList/MovieList";
-import { searchMovies } from "./api";
+import { searchMovies } from "./services/movieService";
 import css from "./App.module.css";
 
 const App = () => {

@@ -1,10 +1,10 @@
 import axios from "axios";
-import type { MoviesResponse } from "./types/movie";
+import type { MoviesResponse } from "../types/movie";
 
 const BASE_URL =
   "https://api.themoviedb.org/3";
-const API_KEY =
-  "с45455be439e5e64925b42e85cab8bec8";
+const API_KEY = import.meta.env
+  .VITE_TMDB_API_KEY;
 
 export const IMAGE_BASE_URL =
   "https://image.tmdb.org/t/p/w500";
