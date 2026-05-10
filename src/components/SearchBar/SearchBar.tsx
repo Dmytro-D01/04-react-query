@@ -1,24 +1,26 @@
-import { useState } from "react";
-import type { FormEvent } from "react";
+import toast from "react-hot-toast";
 import css from "./SearchBar.module.css";
 
 interface SearchBarProps {
-  onSearch: (query: string) => void;
+  onSubmit: (query: string) => void;
 }
 
 const SearchBar = ({
-  onSearch,
+  onSubmit,
 }: SearchBarProps) => {
-  const [inputValue, setInputValue] =
-    useState<string>("");
-
   const handleSubmit = (
-    e: FormEvent<HTMLFormElement>,
+    formData: FormData,
   ): void => {
-    e.preventDefault();
-    const trimmed = inputValue.trim();
-    if (!trimmed) return;
-    onSearch(trimmed);
+    const query = (
+      formData.get("query") as string
+    ).trim();
+    if (!query) {
+      toast.error(
+        "Введіть пошуковий запит!",
+      );
+      return;
+    }
+    onSubmit(query);
   };
 
   return (
@@ -28,19 +30,14 @@ const SearchBar = ({
           🎬 CineSearch
         </span>
         <form
-          onSubmit={handleSubmit}
+          action={handleSubmit}
           className={css.form}
         >
           <input
             type="text"
+            name="query"
             className={css.input}
             placeholder="Пошук фільмів..."
-            value={inputValue}
-            onChange={(e) =>
-              setInputValue(
-                e.target.value,
-              )
-            }
             aria-label="Пошук фільмів"
           />
           <button

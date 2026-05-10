@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import type { Movie } from "../../types/movie";
 import { IMAGE_BASE_URL } from "../../services/movieService";
 import css from "./MovieModal.module.css";
@@ -9,17 +10,19 @@ interface MovieModalProps {
 }
 
 const FALLBACK_IMG =
-  "https://placehold.co/300x450/1a1a1a/f0c040?text=No+Image";
+  "https://placehold.co/1280x720/1a1a1a/f0c040?text=No+Image";
 
 const MovieModal = ({
   movie,
   onClose,
 }: MovieModalProps) => {
-  const imgSrc = movie.poster_path
-    ? `${IMAGE_BASE_URL}${movie.poster_path}`
+  const imgSrc = movie.backdrop_path
+    ? `${IMAGE_BASE_URL}${movie.backdrop_path}`
     : FALLBACK_IMG;
 
   useEffect(() => {
+    document.body.style.overflow =
+      "hidden";
     const handleKeyDown = (
       e: KeyboardEvent,
     ): void => {
@@ -29,14 +32,16 @@ const MovieModal = ({
       "keydown",
       handleKeyDown,
     );
-    return () =>
+    return () => {
+      document.body.style.overflow = "";
       window.removeEventListener(
         "keydown",
         handleKeyDown,
       );
+    };
   }, [onClose]);
 
-  return (
+  return createPortal(
     <div
       className={css.backdrop}
       onClick={onClose}
@@ -56,7 +61,7 @@ const MovieModal = ({
         <img
           src={imgSrc}
           alt={movie.title}
-          className={css.poster}
+          className={css.backdrop_img}
         />
         <div className={css.info}>
           <h2 className={css.title}>
@@ -81,7 +86,8 @@ const MovieModal = ({
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 };
 

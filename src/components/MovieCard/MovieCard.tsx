@@ -4,6 +4,7 @@ import css from "./MovieCard.module.css";
 
 interface MovieCardProps {
   movie: Movie;
+  onSelect: (movie: Movie) => void;
 }
 
 const FALLBACK_IMG =
@@ -11,6 +12,7 @@ const FALLBACK_IMG =
 
 const MovieCard = ({
   movie,
+  onSelect,
 }: MovieCardProps) => {
   const {
     title,
@@ -36,7 +38,10 @@ const MovieCard = ({
         : css.ratingLow;
 
   return (
-    <li className={css.card}>
+    <li
+      className={css.card}
+      onClick={() => onSelect(movie)}
+    >
       <div
         className={css.posterWrapper}
       >

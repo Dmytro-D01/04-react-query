@@ -1,13 +1,20 @@
 import axios from "axios";
-import type { MoviesResponse } from "../types/movie";
+import type { Movie } from "../types/movie";
 
 const BASE_URL =
   "https://api.themoviedb.org/3";
-const API_KEY = import.meta.env
-  .VITE_TMDB_API_KEY;
+const TOKEN = import.meta.env
+  .VITE_TMDB_TOKEN;
 
 export const IMAGE_BASE_URL =
   "https://image.tmdb.org/t/p/w500";
+
+interface MoviesResponse {
+  results: Movie[];
+  total_pages: number;
+  total_results: number;
+  page: number;
+}
 
 export const searchMovies = async (
   query: string,
@@ -17,8 +24,10 @@ export const searchMovies = async (
     await axios.get<MoviesResponse>(
       `${BASE_URL}/search/movie`,
       {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
         params: {
-          api_key: API_KEY,
           query,
           page,
           language: "uk-UA",
