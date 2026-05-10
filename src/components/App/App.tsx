@@ -1,4 +1,7 @@
-import { useState } from "react";
+import {
+  useState,
+  useEffect,
+} from "react";
 import { useQuery } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
 import { Toaster } from "react-hot-toast";
@@ -35,6 +38,28 @@ const App = () => {
     placeholderData: (prev) => prev,
   });
 
+  const movies = data?.results ?? [];
+  const totalPages =
+    data?.total_pages ?? 0;
+
+  useEffect(() => {
+    if (
+      !isLoading &&
+      !isError &&
+      query &&
+      movies.length === 0
+    ) {
+      toast.error(
+        `За запитом «${query}» нічого не знайдено.`,
+      );
+    }
+  }, [
+    isLoading,
+    isError,
+    query,
+    movies.length,
+  ]);
+
   const handleSubmit = (
     newQuery: string,
   ): void => {
@@ -51,21 +76,6 @@ const App = () => {
   const handleCloseModal = (): void => {
     setSelectedMovie(null);
   };
-
-  const movies = data?.results ?? [];
-  const totalPages =
-    data?.total_pages ?? 0;
-
-  if (
-    !isLoading &&
-    !isError &&
-    query &&
-    movies.length === 0
-  ) {
-    toast.error(
-      `За запитом «${query}» нічого не знайдено.`,
-    );
-  }
 
   return (
     <div className={css.app}>
