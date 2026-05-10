@@ -47,18 +47,13 @@ const App = () => {
       !isLoading &&
       !isError &&
       query &&
-      movies.length === 0
+      data?.results.length === 0
     ) {
       toast.error(
         `За запитом «${query}» нічого не знайдено.`,
       );
     }
-  }, [
-    isLoading,
-    isError,
-    query,
-    movies.length,
-  ]);
+  }, [isLoading, isError, query, data]);
 
   const handleSubmit = (
     newQuery: string,
