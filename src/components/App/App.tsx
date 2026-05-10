@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
-import SearchBar from "./components/SearchBar/SearchBar";
-import MovieList from "./components/MovieList/MovieList";
-import { searchMovies } from "./services/movieService";
+import SearchBar from "../SearchBar/SearchBar";
+import MovieGrid from "../MovieGrid/MovieGrid";
+import Loader from "../Loader/Loader";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { searchMovies } from "../../services/movieService";
 import css from "./App.module.css";
 
 const App = () => {
@@ -41,44 +43,24 @@ const App = () => {
       <SearchBar
         onSearch={handleSearch}
       />
-
       <main className={css.main}>
-        {isLoading && (
-          <div
-            className={
-              css.statusWrapper
-            }
-          >
-            <div
-              className={css.spinner}
-            />
-            <p
-              className={css.statusText}
-            >
-              Шукаємо фільми…
-            </p>
-          </div>
-        )}
-
+        {isLoading && <Loader />}
         {isError && (
-          <p className={css.errorText}>
-            Помилка:{" "}
-            {(error as Error).message}
-          </p>
+          <ErrorMessage
+            message={
+              (error as Error).message
+            }
+          />
         )}
-
         {!isLoading &&
           !isError &&
           query &&
           movies.length === 0 && (
-            <p
-              className={css.statusText}
-            >
+            <p className={css.empty}>
               За запитом «{query}»
               нічого не знайдено.
             </p>
           )}
-
         {!query && (
           <div className={css.welcome}>
             <span
@@ -94,11 +76,9 @@ const App = () => {
             </p>
           </div>
         )}
-
         {movies.length > 0 && (
-          <MovieList movies={movies} />
+          <MovieGrid movies={movies} />
         )}
-
         {totalPages > 1 && (
           <ReactPaginate
             pageCount={totalPages}

@@ -11,40 +11,10 @@
   padding: 32px 24px 60px;
 }
 
-.statusWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 60px 0;
-}
-
-.spinner {
-  width: 44px;
-  height: 44px;
-  border: 3px solid #333;
-  border-top-color: #f0c040;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.statusText {
+.empty {
   text-align: center;
   color: #888;
   font-size: 1rem;
-  margin: 0;
-  padding: 60px 0;
-}
-
-.errorText {
-  text-align: center;
-  color: #ff6b6b;
-  font-size: 1rem;
-  margin: 0;
   padding: 60px 0;
 }
 
@@ -62,7 +32,6 @@
   font-size: 3.5rem;
 }
 
-/* Пагінація */
 .pagination {
   display: flex;
   justify-content: center;

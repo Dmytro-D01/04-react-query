@@ -1,0 +1,76 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 20px;
+}
+
+.modal {
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  max-width: 700px;
+  width: 100%;
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.closeBtn:hover {
+  color: #fff;
+}
+
+.poster {
+  width: 200px;
+  min-width: 200px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  font-size: 1.3rem;
+  color: #f0f0f0;
+  margin: 0;
+}
+
+.year {
+  color: #888;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.rating {
+  color: #f0c040;
+  font-weight: bold;
+  margin: 0;
+}
+
+.overview {
+  color: #bbb;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
